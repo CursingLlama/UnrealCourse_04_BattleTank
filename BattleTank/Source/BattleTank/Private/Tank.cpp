@@ -1,6 +1,6 @@
 // Copyright Gregory Scott Hanna 2018
 
-#include "Public/Tank.h"
+#include "Tank.h"
 
 
 // Sets default values
