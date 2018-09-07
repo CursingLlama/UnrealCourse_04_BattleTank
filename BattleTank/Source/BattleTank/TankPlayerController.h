@@ -29,6 +29,11 @@ private:
 	//Converts screen position to world vector
 	bool GetLookDirection(FVector2D ScreenPosition, FVector & LookDirection) const;
 
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const;
+
+	
+
 	UPROPERTY(EditAnywhere) float CrossHairXLocation = 1/2.f;
 	UPROPERTY(EditAnywhere) float CrossHairYLocation = 1/3.f;
+	UPROPERTY(EditAnywhere) float LineTraceRange = 10000000.f;
 };

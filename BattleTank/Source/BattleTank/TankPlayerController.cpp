@@ -1,6 +1,7 @@
 // Copyright Gregory Scott Hanna 2018
 
 #include "TankPlayerController.h"
+#include "Engine/World.h"
 
 
 void ATankPlayerController::BeginPlay()
@@ -48,11 +49,15 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	
 	//Deproject crosshair
 	FVector LookDirection;
+	
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *LookDirection.ToString());
+		if (GetLookVectorHitLocation(LookDirection, HitLocation))
+		{
+			return true;
+		}
 	}
-		
+
 	return false;
 }
 
@@ -60,5 +65,19 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenPosition, FVector& 
 {
 	FVector WorldPosition;
 	return DeprojectScreenPositionToWorld(ScreenPosition.X, ScreenPosition.Y, WorldPosition, LookDirection);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+{
+	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
+	FVector EndLocation = StartLocation + (LookDirection * LineTraceRange);
+	FHitResult HitResult;
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Visibility))
+	{
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	HitLocation = FVector(0.f);
+	return false;
 }
 
