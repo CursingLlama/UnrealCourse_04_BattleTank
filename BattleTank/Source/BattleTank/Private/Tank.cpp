@@ -2,6 +2,7 @@
 
 #include "Tank.h"
 #include "GameFramework/Actor.h"
+#include "TankAimingComponent.h"
 
 // Sets default values
 ATank::ATank()
