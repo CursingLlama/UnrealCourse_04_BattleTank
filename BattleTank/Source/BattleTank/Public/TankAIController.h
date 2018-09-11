@@ -20,7 +20,5 @@ public:
 	virtual void Tick(float DeltaTime);
 
 private:
-	ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;
-	
+
 };
