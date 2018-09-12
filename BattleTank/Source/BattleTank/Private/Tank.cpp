@@ -7,7 +7,6 @@
 #include "Engine/StaticMeshSocket.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
-#include "TankMovementComponent.h"
 
 // Sets default values
 ATank::ATank()
@@ -16,7 +15,6 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 	//No need to protect a pointer when added in constructor
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 }
 
 // Called when the game starts or when spawned

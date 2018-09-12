@@ -34,8 +34,7 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UTankAimingComponent* TankAimingComponent = nullptr;
-	UPROPERTY(BlueprintReadOnly) UTankMovementComponent* TankMovementComponent = nullptr;
-
+	
 private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing) TSubclassOf<AProjectile> ProjectileBlueprint;
 	UPROPERTY(EditDefaultsOnly, Category = Firing) float LaunchSpeed = 40000.f;
