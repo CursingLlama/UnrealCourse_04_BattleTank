@@ -20,7 +20,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
-	if (!Barrel) { return; } ///Protect Pointer
+	if (!ensure(Barrel)) { return; } ///Protect Pointer
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	FVector OutLaunchVelocity;
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace);
@@ -33,7 +33,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!Barrel || !Turret)	{ return; } ///Protect Pointers
+	if (!ensure(Barrel && Turret))	{ return; } ///Protect Pointers
 	FRotator BarrelRotator = Barrel->GetForwardVector().Rotation();
 	FRotator AimAsRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimAsRotator - BarrelRotator;
@@ -43,14 +43,14 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	if (!BarrelToSet)
+	if (!ensure(BarrelToSet))
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s: No TankBarrel assigned!"), *GetOwner()->GetName());
 		return;
 	}
 	Barrel = BarrelToSet;
 
-	if (!TurretToSet)
+	if (!ensure(TurretToSet))
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s: No TankTurret assigned!"), *GetOwner()->GetName());
 		return;

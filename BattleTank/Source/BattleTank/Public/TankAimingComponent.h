@@ -35,7 +35,7 @@ public:
 	void Fire();
 	
 protected:
-	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Locked;
+	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Aiming;
 			
 private:	
 	UTankBarrel* Barrel = nullptr;
