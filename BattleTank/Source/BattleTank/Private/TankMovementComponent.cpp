@@ -25,8 +25,8 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 }
 
 /*
-Turns tank
-@param Throw positive turns right, negative turns left (-1,1)
+* Turns tank
+* @param Throw positive turns right, negative turns left (-1,1)
 */
 void UTankMovementComponent::IntendTurn(float Throw)
 {

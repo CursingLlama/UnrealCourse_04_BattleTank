@@ -33,7 +33,7 @@ protected:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	UPROPERTY(BlueprintReadOnly) UTankAimingComponent* TankAimingComponent = nullptr;
 	
 private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing) TSubclassOf<AProjectile> ProjectileBlueprint;

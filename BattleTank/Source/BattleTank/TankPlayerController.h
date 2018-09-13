@@ -20,9 +20,10 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float) override;
 
-private:
-	ATank* GetControlledTank() const;
+protected:
+	UFUNCTION(BlueprintCallable, Category = Setup) ATank* GetControlledTank() const;
 
+private:
 	//Move the tank's barrel to aim point on screen
 	void AimTowardsCrosshair();
 	//Line traces from camera to crosshair returning true if something is hit and adjusting the out parameter
