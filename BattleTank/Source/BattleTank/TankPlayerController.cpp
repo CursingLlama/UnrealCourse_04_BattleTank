@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 
 #include "TankAimingComponent.h"
+///Movement handled by input bindings directly in BP
 
 
 void ATankPlayerController::BeginPlay()

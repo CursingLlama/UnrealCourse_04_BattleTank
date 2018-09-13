@@ -61,6 +61,7 @@ void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* Tur
 
 void UTankAimingComponent::Fire()
 {
+	if (!ensure(ProjectileBlueprint)) { return; }
 	bool bIsReloaded = GetWorld()->GetTimeSeconds() > LastFiredTime + ReloadTimeInSeconds;
 	if (Barrel && bIsReloaded)
 	{
@@ -72,3 +73,9 @@ void UTankAimingComponent::Fire()
 		LastFiredTime = GetWorld()->GetTimeSeconds();
 	}
 }
+
+void UTankAimingComponent::SetProjectile(TSubclassOf<AProjectile> Projectile)
+{
+	ProjectileBlueprint = Projectile;
+}
+

@@ -32,7 +32,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input") void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 	//Handles the spawning of projectiles for the tank
 	UFUNCTION(BlueprintCallable, Category = "Input") void Fire();
-	
+	UFUNCTION(BlueprintCallable, Category = "Setup") void SetProjectile(TSubclassOf<AProjectile> Projectile);
+
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Aiming;
 			
