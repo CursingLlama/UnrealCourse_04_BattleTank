@@ -6,6 +6,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Engine/World.h"
+#include "Projectile.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -14,7 +15,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
-	// ...
+	//
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -40,7 +41,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	Turret->Rotate(DeltaRotator.Yaw);
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
 	if (!BarrelToSet)
 	{
@@ -48,14 +49,25 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 		return;
 	}
 	Barrel = BarrelToSet;
-}
 
-void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
-{
 	if (!TurretToSet)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s: No TankTurret assigned!"), *GetOwner()->GetName());
 		return;
 	}
 	Turret = TurretToSet;
+}
+
+void UTankAimingComponent::Fire(float LaunchSpeed)
+{
+	bool bIsReloaded = GetWorld()->GetTimeSeconds() > LastFiredTime + ReloadTimeInSeconds;
+	if (Barrel && bIsReloaded)
+	{
+		FVector Location = Barrel->GetSocketLocation(FName("Projectile"));
+		FRotator Rotation = Barrel->GetSocketRotation(FName("Projectile"));
+
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Location, Rotation);
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFiredTime = GetWorld()->GetTimeSeconds();
+	}
 }

@@ -3,6 +3,7 @@
 #include "TankPlayerController.h"
 #include "Engine/World.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 
 
 void ATankPlayerController::BeginPlay()
@@ -12,6 +13,15 @@ void ATankPlayerController::BeginPlay()
 	if (!Tank)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Player: No tank found!"));
+	}
+	UTankAimingComponent* AimingComponent = Tank->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Player: No AimingComponent found!"));
 	}
 }
 

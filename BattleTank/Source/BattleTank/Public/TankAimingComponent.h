@@ -6,9 +6,18 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
 //Forward Declaration
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 //Holds barrel properties and methods
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -19,13 +28,21 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-	void AimAt(FVector HitLocation, float LaunchSpeed);
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret* TurretToSet);
+	UFUNCTION(BlueprintCallable, Category = Input) void AimAt(FVector HitLocation, float LaunchSpeed);
+	UFUNCTION(BlueprintCallable, Category = Input) void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
-private:	
+	//Handles the spawning of projectiles for the tank
+	void Fire(float LaunchSpeed);
 	
+protected:
+	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Locked;
+			
+private:	
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 	void MoveBarrelTowards(FVector AimDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing") TSubclassOf<AProjectile> ProjectileBlueprint;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing") float ReloadTimeInSeconds = 3;
+	float LastFiredTime = -1000;
 };

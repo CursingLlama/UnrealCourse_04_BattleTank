@@ -7,6 +7,7 @@
 #include "TankPlayerController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
 
 /**
  * 
@@ -21,7 +22,8 @@ public:
 	virtual void Tick(float) override;
 
 protected:
-	UFUNCTION(BlueprintCallable, Category = Setup) ATank* GetControlledTank() const;
+	UFUNCTION(BlueprintCallable, Category = "Setup") ATank* GetControlledTank() const;
+	UFUNCTION(BlueprintImplementableEvent, category = "Setup") void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
 private:
 	//Move the tank's barrel to aim point on screen
