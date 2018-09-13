@@ -6,7 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -22,7 +21,6 @@ public:
 	virtual void Tick(float) override;
 
 protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup") ATank* GetControlledTank() const;
 	UFUNCTION(BlueprintImplementableEvent, category = "Setup") void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
 private:
@@ -32,8 +30,10 @@ private:
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	//Converts screen position to world vector
 	bool GetLookDirection(FVector2D ScreenPosition, FVector & LookDirection) const;
-
+	//Raycasts through look direction and returns a hit
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const;
+
+	UTankAimingComponent* AimingComponent = nullptr;
 
 	UPROPERTY(EditDefaultsOnly) float CrossHairXLocation = 1/2.f;
 	UPROPERTY(EditDefaultsOnly) float CrossHairYLocation = 1/3.f;

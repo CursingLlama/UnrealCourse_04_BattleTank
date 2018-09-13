@@ -2,11 +2,9 @@
 
 #include "Tank.h"
 #include "GameFramework/Actor.h"
-#include "TankAimingComponent.h"
 #include "Engine/World.h"
 #include "Engine/StaticMeshSocket.h"
-#include "TankBarrel.h"
-#include "Projectile.h"
+
 
 // Sets default values
 ATank::ATank()
@@ -18,7 +16,6 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); //Hooks into blueprint BeginPlay
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 // Called every frame
@@ -32,17 +29,4 @@ void ATank::Tick(float DeltaTime)
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(HitLocation);
-}
-
-
-void ATank::Fire()
-{
-	TankAimingComponent->Fire();
 }

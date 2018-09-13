@@ -3,9 +3,10 @@
 #include "TankAimingComponent.h"
 #include "GameFramework/Actor.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
+
 #include "TankBarrel.h"
 #include "TankTurret.h"
-#include "Engine/World.h"
 #include "Projectile.h"
 
 // Sets default values for this component's properties
