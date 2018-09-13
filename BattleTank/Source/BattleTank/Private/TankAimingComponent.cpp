@@ -18,7 +18,7 @@ UTankAimingComponent::UTankAimingComponent()
 	//
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!Barrel) { return; } ///Protect Pointer
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -58,7 +58,7 @@ void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* Tur
 	Turret = TurretToSet;
 }
 
-void UTankAimingComponent::Fire(float LaunchSpeed)
+void UTankAimingComponent::Fire()
 {
 	bool bIsReloaded = GetWorld()->GetTimeSeconds() > LastFiredTime + ReloadTimeInSeconds;
 	if (Barrel && bIsReloaded)

@@ -28,11 +28,11 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-	UFUNCTION(BlueprintCallable, Category = Input) void AimAt(FVector HitLocation, float LaunchSpeed);
+	UFUNCTION(BlueprintCallable, Category = Input) void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = Input) void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	//Handles the spawning of projectiles for the tank
-	void Fire(float LaunchSpeed);
+	void Fire();
 	
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Locked;
@@ -43,6 +43,7 @@ private:
 	void MoveBarrelTowards(FVector AimDirection);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing") TSubclassOf<AProjectile> ProjectileBlueprint;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing") float LaunchSpeed = 4000.f;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing") float ReloadTimeInSeconds = 3;
 	float LastFiredTime = -1000;
 };
