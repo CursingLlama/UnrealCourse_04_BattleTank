@@ -39,4 +39,3 @@ void AProjectile::LaunchProjectile(float Speed)
 		ProjectileMovement->Activate();
 	}
 }
-
