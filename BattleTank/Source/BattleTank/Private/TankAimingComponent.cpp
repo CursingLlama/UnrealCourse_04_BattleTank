@@ -43,7 +43,11 @@ void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* Tur
 
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
-	if (GetWorld()->GetTimeSeconds() < LastFiredTime + ReloadTimeInSeconds)
+	if (Ammo <= 0)
+	{
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if (GetWorld()->GetTimeSeconds() < LastFiredTime + ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Reloading;
 	}
@@ -94,8 +98,9 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(ProjectileBlueprint)) { return; }
 	if (!ensure(Barrel)) { return; }
-	if (FiringState != EFiringState::Reloading)
+	if (FiringState == EFiringState::Aiming || FiringState == EFiringState::Locked)
 	{
+		Ammo--;
 		FVector Location = Barrel->GetSocketLocation(FName("Projectile"));
 		FRotator Rotation = Barrel->GetSocketRotation(FName("Projectile"));
 
