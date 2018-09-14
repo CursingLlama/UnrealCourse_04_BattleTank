@@ -38,7 +38,7 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Aiming;
-	UPROPERTY(BlueprintReadOnly, category = "Ammo") uint8 Ammo = 8;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, category = "Firing") int32 Ammo = 8;
 private:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	virtual void BeginPlay() override;
