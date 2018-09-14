@@ -20,7 +20,7 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, category = "Components") UStaticMeshComponent* CollisionMesh = nullptr;
-	UPROPERTY(VisibleAnywhere, category = "Components") UParticleSystemComponent* LaunchBlast = nullptr;
+	///UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = "Components") UParticleSystemComponent* LaunchBlast = nullptr;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
