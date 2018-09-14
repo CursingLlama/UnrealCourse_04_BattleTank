@@ -33,6 +33,7 @@ public:
 	//Handles the spawning of projectiles for the tank
 	UFUNCTION(BlueprintCallable, Category = "Input") void Fire();
 	UFUNCTION(BlueprintCallable, Category = "Setup") void SetProjectile(TSubclassOf<AProjectile> Projectile);
+	EFiringState GetFiringState();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Aiming;
