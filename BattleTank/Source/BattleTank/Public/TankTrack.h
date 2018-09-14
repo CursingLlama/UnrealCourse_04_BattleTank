@@ -20,10 +20,12 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction) override;
-		
+			
 private:
 	UFUNCTION() void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+	void CounteractSidewaysForce();
+	void DriveTrack();
 
 	UPROPERTY(EditDefaultsOnly) float MaxDrivingForce = 30000000;
+	float CurrentThrottle = 0;
 };
