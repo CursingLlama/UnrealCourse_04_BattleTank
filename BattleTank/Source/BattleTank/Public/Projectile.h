@@ -30,6 +30,8 @@ private:
 	void DestroyMe();
 	
 	UPROPERTY(EditDefaultsOnly, category = "Setup") float DestroyDelay = 2;
+	UPROPERTY(EditDefaultsOnly, category = "Setup") float ProjectileDamage = 15;
+
 	UPROPERTY(VisibleAnywhere, category = "Components") UStaticMeshComponent* CollisionMesh = nullptr;
 	UPROPERTY(VisibleAnywhere, category = "Components") UParticleSystemComponent* LaunchBlast = nullptr;
 	UPROPERTY(VisibleAnywhere, category = "Components") UParticleSystemComponent* ImpactBlast = nullptr;
