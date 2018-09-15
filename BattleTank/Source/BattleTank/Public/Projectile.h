@@ -8,6 +8,7 @@
 
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
+class URadialForceComponent;
 
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
@@ -20,16 +21,18 @@ public:
 	void LaunchProjectile(float Speed);
 
 protected:
-	UPROPERTY(VisibleAnywhere, category = "Components") UStaticMeshComponent* CollisionMesh = nullptr;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = "Components") UParticleSystemComponent* LaunchBlast = nullptr;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = "Components") UParticleSystemComponent* ImpactBlast = nullptr;
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	UProjectileMovementComponent* ProjectileMovement = nullptr;
-	UFUNCTION() void OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit);
 	virtual void Tick(float DeltaTime) override;
-
-private:	
+	virtual void BeginPlay() override;
+	UFUNCTION() void OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit);
 	
+
+private:
+	void DestroyMe();
+	
+	UPROPERTY(EditDefaultsOnly, category = "Setup") float DestroyDelay = 2;
+	UPROPERTY(VisibleAnywhere, category = "Components") UStaticMeshComponent* CollisionMesh = nullptr;
+	UPROPERTY(VisibleAnywhere, category = "Components") UParticleSystemComponent* LaunchBlast = nullptr;
+	UPROPERTY(VisibleAnywhere, category = "Components") UParticleSystemComponent* ImpactBlast = nullptr;
+	UPROPERTY(VisibleAnywhere, category = "Components") URadialForceComponent* ExplosionForce = nullptr;
+	UProjectileMovementComponent* ProjectileMovement = nullptr;
 };

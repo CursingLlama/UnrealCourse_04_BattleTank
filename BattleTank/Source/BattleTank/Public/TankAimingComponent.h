@@ -38,7 +38,8 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "State") EFiringState FiringState = EFiringState::Aiming;
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, category = "Firing") int32 Ammo = 8;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, category = "Firing") int32 Ammo = 30;
+
 private:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	virtual void BeginPlay() override;
@@ -46,12 +47,11 @@ private:
 	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing") TSubclassOf<AProjectile> ProjectileBlueprint;
-	UPROPERTY(EditDefaultsOnly, Category = "Firing") float LaunchSpeed = 4000.f;
-	UPROPERTY(EditDefaultsOnly, Category = "Firing") float ReloadTimeInSeconds = 3;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing") float LaunchSpeed = 5000.f;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing") float ReloadTimeInSeconds = 2;
 	
 	float LastFiredTime;
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
-	FVector AimDirection = FVector(0);
-	
+	FVector AimDirection = FVector(0);	
 };
