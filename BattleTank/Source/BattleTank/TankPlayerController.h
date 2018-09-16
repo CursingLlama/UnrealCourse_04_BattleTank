@@ -22,7 +22,7 @@ public:
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent, category = "Setup") void FoundAimingComponent(UTankAimingComponent* AimCompRef);
-
+	
 private:
 	//Move the tank's barrel to aim point on screen
 	void AimTowardsCrosshair();
@@ -32,6 +32,8 @@ private:
 	bool GetLookDirection(FVector2D ScreenPosition, FVector & LookDirection) const;
 	//Raycasts through look direction and returns a hit
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const;
+	UFUNCTION() void OnTankDeath();
+	virtual void SetPawn(APawn* InPawn) override;
 
 	UTankAimingComponent* AimingComponent = nullptr;
 

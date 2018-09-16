@@ -35,9 +35,9 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AC
 {
 	int32 Damage = FMath::Clamp<int32>(FPlatformMath::RoundToInt(DamageAmount), 0, CurrentHealth);
 	CurrentHealth -= Damage;
-	if (CurrentHealth == 0)
+	if (CurrentHealth <= 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[%s] is dead!"), *GetName());
+		OnDeath.Broadcast();
 	}
 	return Damage;
 }

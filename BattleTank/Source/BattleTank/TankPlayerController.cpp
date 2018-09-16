@@ -2,8 +2,8 @@
 
 #include "TankPlayerController.h"
 #include "Engine/World.h"
-
 #include "TankAimingComponent.h"
+#include "Tank.h"
 ///Movement handled by input bindings directly in BP
 
 
@@ -14,6 +14,19 @@ void ATankPlayerController::BeginPlay()
 	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 	FoundAimingComponent(AimingComponent);
+}
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		ATank* PossessedTank = Cast<ATank>(InPawn);
+		if (ensure(PossessedTank))
+		{
+			PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+		}
+	}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -65,4 +78,9 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	}
 	HitLocation = FVector(TNumericLimits<float>::Max());
 	return false;
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Player tank is dead!"));
 }
