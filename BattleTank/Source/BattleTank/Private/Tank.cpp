@@ -16,6 +16,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); //Hooks into blueprint BeginPlay
+	CurrentHealth = MaxHealth;
 }
 
 // Called every frame

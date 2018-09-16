@@ -32,6 +32,6 @@ protected:
 	
 private:
 	UPROPERTY(EditDefaultsOnly, category = "Health") int32 MaxHealth = 100;
-	UPROPERTY(VisibleAnywhere, category = "Health") int32 CurrentHealth = MaxHealth;
+	UPROPERTY(VisibleInstanceOnly, category = "Health") int32 CurrentHealth;
 			
 };

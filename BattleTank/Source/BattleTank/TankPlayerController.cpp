@@ -71,7 +71,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
 	FVector EndLocation = StartLocation + (LookDirection * LineTraceRange);
 	FHitResult HitResult;
-	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Visibility))
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Camera))
 	{
 		HitLocation = HitResult.Location;
 		return true;
@@ -82,5 +82,5 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 
 void ATankPlayerController::OnTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Player tank is dead!"));
+	StartSpectatingOnly();
 }
