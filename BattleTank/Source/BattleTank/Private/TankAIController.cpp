@@ -39,7 +39,7 @@ void ATankAIController::Tick(float DeltaTime)
 	
 	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	APawn* PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (ensure(PlayerTank))
+	if (PlayerTank)
 	{
 		MoveToActor(PlayerTank, AcceptanceRadius);
 
