@@ -22,10 +22,10 @@ protected:
 	virtual void BeginPlay() override;
 			
 private:
-	UFUNCTION() void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
-	void CounteractSidewaysForce();
-	void DriveTrack();
+	void DriveTrack(float CurrentThrottle);
 
 	UPROPERTY(EditDefaultsOnly) float MaxDrivingForce = 30000000;
-	float CurrentThrottle = 0;
+	
+	TArray<class ASprungWheel*> GetWheels() const;
+	
 };

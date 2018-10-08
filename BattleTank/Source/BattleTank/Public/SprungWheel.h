@@ -17,6 +17,8 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void AddDrivingForce(float ForceMagnitude);
 	
 protected:
 	// Called when the game starts or when spawned
@@ -30,4 +32,6 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Setup") class USphereComponent* Wheel = nullptr;
 	UPROPERTY(VisibleAnywhere, Category = "Setup") USphereComponent* Axle = nullptr;
 	
+	UFUNCTION() void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+	float DriveForce = 0;
 };
